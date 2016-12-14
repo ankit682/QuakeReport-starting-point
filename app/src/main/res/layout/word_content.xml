@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/word_content"
     android:orientation="horizontal"
     android:layout_width="match_parent"
@@ -8,13 +9,29 @@
 
     <TextView
         android:id="@+id/scale_earthquake"
-        style="@style/DataHeader" />
+        style="@style/DataHeader"
+        android:background="@drawable/magnitude_circle"
+        android:gravity="center"
+        tools:text="7.2"/>
 
     <TextView
-        android:id="@+id/place_earthquake"
-        style="@style/DataHeader" />
+        android:id="@+id/location_offset"
+        style="@style/DataHeader"
+        android:layout_marginLeft="14dp"
+        tools:text="86km NE 0f"/>
+
+    <TextView
+        android:id="@+id/primary_earthquake"
+        style="@style/DataHeader"
+        tools:text="New Orleans"/>
 
     <TextView
         android:id="@+id/date_earthquake"
-        style="@style/DataHeader" />
+        style="@style/DataHeader"
+        tools:text="Feb 12,2012"/>
+
+    <TextView
+        android:id="@+id/time_earthquake"
+        style="@style/DataHeader"
+        tools:text="12:21"/>
 </LinearLayout>

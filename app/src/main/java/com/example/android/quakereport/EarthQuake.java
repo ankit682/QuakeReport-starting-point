@@ -8,21 +8,21 @@ import java.util.Date;
 
 public class EarthQuake {
 
-    private String scaleEarthQuake;
+    private double scaleEarthQuake;
     private String placeEarthQuake;
-    private String dateEarthQuake;
+    private long dateEarthQuake;
 
-    public EarthQuake(String scaleEarthQuake, String placeEarthQuake, String dateEarthQuake) {
+    public EarthQuake(double scaleEarthQuake, String placeEarthQuake, long dateEarthQuake) {
         this.scaleEarthQuake = scaleEarthQuake;
         this.placeEarthQuake = placeEarthQuake;
         this.dateEarthQuake = dateEarthQuake;
     }
 
-    public String getScaleEarthQuake() {
+    public double getScaleEarthQuake() {
         return scaleEarthQuake;
     }
 
-    public void setScaleEarthQuake(String scaleEarthQuake) {
+    public void setScaleEarthQuake(double scaleEarthQuake) {
         this.scaleEarthQuake = scaleEarthQuake;
     }
 
@@ -34,11 +34,11 @@ public class EarthQuake {
         this.placeEarthQuake = placeEarthQuake;
     }
 
-    public String getDateEarthQuake() {
+    public long getDateEarthQuake() {
         return dateEarthQuake;
     }
 
-    public void setDateEarthQuake(String dateEarthQuake) {
+    public void setDateEarthQuake(long dateEarthQuake) {
         this.dateEarthQuake = dateEarthQuake;
     }
 }

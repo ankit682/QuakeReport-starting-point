@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by PC on 13-12-2016.
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 
 public class EarthQuakeAdapter extends ArrayAdapter<EarthQuake> {
 
+    private static final String LOCATION_SEPARATOR = " of ";
 
     public EarthQuakeAdapter(Context context, ArrayList<EarthQuake> earthQuakeArrayList){
         super(context, 0 , earthQuakeArrayList);
@@ -36,15 +40,56 @@ public class EarthQuakeAdapter extends ArrayAdapter<EarthQuake> {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.word_content,parent, false);
         }
 
+
+
         TextView scaleView = (TextView) listItemView.findViewById(R.id.scale_earthquake);
-        scaleView.setText(currentEarthQuake.getScaleEarthQuake());
+        String formattedMagnitude = formatMagnitude(currentEarthQuake.getScaleEarthQuake());
+        scaleView.setText(formattedMagnitude);
 
-        TextView placeView = (TextView) listItemView.findViewById(R.id.place_earthquake);
-        placeView.setText(currentEarthQuake.getPlaceEarthQuake());
+        String originalLocation = currentEarthQuake.getPlaceEarthQuake();
+        String primaryLocation;
+        String locationOffset;
 
+
+        if(originalLocation.contains(LOCATION_SEPARATOR)){
+            String[] parts = originalLocation.split(LOCATION_SEPARATOR);
+            locationOffset = parts[0] + LOCATION_SEPARATOR;
+            primaryLocation = parts[1];
+        }
+        else {
+            locationOffset = getContext().getString(R.string.near_the);
+            primaryLocation = originalLocation;
+        }
+        TextView primaryLocationView = (TextView) listItemView.findViewById(R.id.primary_earthquake);
+        primaryLocationView.setText(primaryLocation);
+
+        TextView locationOffsetView = (TextView) listItemView.findViewById(R.id.location_offset);
+        locationOffsetView.setText(locationOffset);
+
+        Date date = new Date(currentEarthQuake.getDateEarthQuake());
         TextView dateView = (TextView) listItemView.findViewById(R.id.date_earthquake);
-        dateView.setText(currentEarthQuake.getDateEarthQuake());
+        String formattedDate = formatDate(date);
+        dateView.setText(formattedDate);
+
+        TextView timeView = (TextView) listItemView.findViewById(R.id.time_earthquake);
+        String formattedTime = formatTime(date);
+        timeView.setText(formattedTime);
 
         return listItemView;
+    }
+
+    private String formatDate(Date dateObject) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
+        return dateFormat.format(dateObject);
+    }
+
+    private String formatTime(Date dateObject) {
+        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+        return timeFormat.format(dateObject);
+    }
+
+    private String formatMagnitude(double magnitude) {
+        DecimalFormat magnitudeFormat = new DecimalFormat("0.0");
+        return magnitudeFormat.format(magnitude);
     }
 }
