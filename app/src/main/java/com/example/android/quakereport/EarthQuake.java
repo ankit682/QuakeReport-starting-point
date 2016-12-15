@@ -11,11 +11,13 @@ public class EarthQuake {
     private double scaleEarthQuake;
     private String placeEarthQuake;
     private long dateEarthQuake;
+    private String urlEarthQuake;
 
-    public EarthQuake(double scaleEarthQuake, String placeEarthQuake, long dateEarthQuake) {
+    public EarthQuake(double scaleEarthQuake, String placeEarthQuake, long dateEarthQuake, String urlEarthQuake) {
         this.scaleEarthQuake = scaleEarthQuake;
         this.placeEarthQuake = placeEarthQuake;
         this.dateEarthQuake = dateEarthQuake;
+        this.urlEarthQuake = urlEarthQuake;
     }
 
     public double getScaleEarthQuake() {
@@ -40,5 +42,13 @@ public class EarthQuake {
 
     public void setDateEarthQuake(long dateEarthQuake) {
         this.dateEarthQuake = dateEarthQuake;
+    }
+
+    public String getUrlEarthQuake() {
+        return urlEarthQuake;
+    }
+
+    public void setUrlEarthQuake(String urlEarthQuake) {
+        this.urlEarthQuake = urlEarthQuake;
     }
 }

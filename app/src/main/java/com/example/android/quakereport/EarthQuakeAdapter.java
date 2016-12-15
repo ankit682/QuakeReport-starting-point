@@ -1,7 +1,5 @@
 package com.example.android.quakereport;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
@@ -25,8 +23,8 @@ public class EarthQuakeAdapter extends ArrayAdapter<EarthQuake> {
 
     private static final String LOCATION_SEPARATOR = " of ";
 
-    public EarthQuakeAdapter(Context context, ArrayList<EarthQuake> earthQuakeArrayList){
-        super(context, 0 , earthQuakeArrayList);
+    public EarthQuakeAdapter(Context context, ArrayList<EarthQuake> earthQuakeArrayList) {
+        super(context, 0, earthQuakeArrayList);
     }
 
 
@@ -38,10 +36,9 @@ public class EarthQuakeAdapter extends ArrayAdapter<EarthQuake> {
 
         View listItemView = convertView;
 
-        if(listItemView == null){
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.word_content,parent, false);
+        if (listItemView == null) {
+            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.word_content, parent, false);
         }
-
 
 
         TextView scaleView = (TextView) listItemView.findViewById(R.id.scale_earthquake);
@@ -64,12 +61,11 @@ public class EarthQuakeAdapter extends ArrayAdapter<EarthQuake> {
         String locationOffset;
 
 
-        if(originalLocation.contains(LOCATION_SEPARATOR)){
+        if (originalLocation.contains(LOCATION_SEPARATOR)) {
             String[] parts = originalLocation.split(LOCATION_SEPARATOR);
             locationOffset = parts[0] + LOCATION_SEPARATOR;
             primaryLocation = parts[1];
-        }
-        else {
+        } else {
             locationOffset = getContext().getString(R.string.near_the);
             primaryLocation = originalLocation;
         }
