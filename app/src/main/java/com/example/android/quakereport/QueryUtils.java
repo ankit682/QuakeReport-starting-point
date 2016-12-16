@@ -29,7 +29,9 @@ import java.util.List;
  */
 public final class QueryUtils {
 
-    /** Tag for the log messages */
+    /**
+     * Tag for the log messages
+     */
     public static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
     /**
@@ -56,40 +58,36 @@ public final class QueryUtils {
     /*
     Make an Http request to the given URL and return a String the response
      */
-    private static String makeHttpRequest(URL url) throws IOException{
+    private static String makeHttpRequest(URL url) throws IOException {
 
         String jsonResponse = "";
 
-        if(url == null){
+        if (url == null) {
             return jsonResponse;
         }
 
         HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
 
-        try{
+        try {
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setReadTimeout(10000);
             urlConnection.setConnectTimeout(15000);
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
-            if(urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
+            } else {
+                Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
             }
-            else {
-                Log.e(LOG_TAG, "Error response code: " +urlConnection.getResponseCode());
-            }
-        }
-        catch (IOException e){
-            Log.e(LOG_TAG, "Problem retrieving json "+ e);
-        }
-        finally {
-            if (urlConnection != null){
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Problem retrieving json " + e);
+        } finally {
+            if (urlConnection != null) {
                 urlConnection.disconnect();
-            }
-            else {
+            } else {
                 inputStream.close();
             }
 
@@ -102,15 +100,15 @@ public final class QueryUtils {
      * Convert the {@link InputStream} into a String which contains the
      * whole JSON response from the server.
      */
-    private static String readFromStream(InputStream inputStream) throws IOException{
+    private static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
 
-        if(inputStream != null){
+        if (inputStream != null) {
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String line = bufferedReader.readLine();
 
-            while (line != null){
+            while (line != null) {
                 stringBuilder.append(line);
                 line = bufferedReader.readLine();
             }
@@ -118,13 +116,14 @@ public final class QueryUtils {
 
         return stringBuilder.toString();
     }
+
     /**
      * Return a list of {@link EarthQuake} objects that has been built up from
      * parsing a JSON response.
      */
     private static ArrayList<EarthQuake> extractEarthquakes(String earthquakeJSON) {
 
-        if (TextUtils.isEmpty(earthquakeJSON)){
+        if (TextUtils.isEmpty(earthquakeJSON)) {
             return null;
         }
 
@@ -166,8 +165,8 @@ public final class QueryUtils {
 
     /**
      * Query the USGS dataset and return a list of {@link EarthQuake} objects.
-    */
-    public static List<EarthQuake> fetchEarthQuakeData(String requestUrl){
+     */
+    public static List<EarthQuake> fetchEarthQuakeData(String requestUrl) {
 
         try {
             Thread.sleep(2000);
@@ -180,9 +179,8 @@ public final class QueryUtils {
         String jsonResponse = null;
         try {
             jsonResponse = makeHttpRequest(url);
-        }
-        catch (IOException e){
-            Log.e(LOG_TAG, "Problem making Http request" +e);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Problem making Http request" + e);
         }
 
         List<EarthQuake> earthQuakes = extractEarthquakes(jsonResponse);

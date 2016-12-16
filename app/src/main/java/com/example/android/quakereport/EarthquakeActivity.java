@@ -33,7 +33,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EarthquakeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<EarthQuake>>{
+public class EarthquakeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<EarthQuake>> {
 
     /**
      * Constant value for the earthquake loader ID. We can choose any integer.
@@ -43,7 +43,9 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     private static final String LOG_TAG = EarthquakeActivity.class.getName();
 
-    /** URL for earthquake data from the USGS dataset */
+    /**
+     * URL for earthquake data from the USGS dataset
+     */
     private static final String SAMPLE_JSON_RESPONSE = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time&minmag=6&limit=10";
 
     private EarthQuakeAdapter earthQuakeAdapter;
@@ -80,16 +82,18 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         });
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo =connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()){
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+
             LoaderManager loaderManager = getLoaderManager();
             Log.i(LOG_TAG, "LoaderManager initLoader() called");
             loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
-        }
-        else {
+
+        } else {
             // Hide loading indicator because the data has been loaded
             View loadingIndicator = findViewById(R.id.loading_spinner);
             loadingIndicator.setVisibility(View.GONE);
+
             emptyStateTextView.setText(R.string.no_internet);
         }
 
@@ -114,7 +118,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
         earthQuakeAdapter.clear();
 
-        if (earthQuakes != null || !earthQuakes.isEmpty()){
+        if (earthQuakes != null || !earthQuakes.isEmpty()) {
             earthQuakeAdapter.addAll(earthQuakes);
         }
     }

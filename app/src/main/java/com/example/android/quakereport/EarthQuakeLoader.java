@@ -15,7 +15,9 @@ public class EarthQuakeLoader extends AsyncTaskLoader<List<EarthQuake>> {
     // Tag for log messages
     private static final String LOG_TAG = EarthQuakeLoader.class.getName();
 
-    /** Query URL */
+    /**
+     * Query URL
+     */
     private String url;
 
     public EarthQuakeLoader(Context context, String url) {
@@ -27,7 +29,7 @@ public class EarthQuakeLoader extends AsyncTaskLoader<List<EarthQuake>> {
     public List<EarthQuake> loadInBackground() {
         Log.i(LOG_TAG, "loadBackground() called");
 
-        if (url == null){
+        if (url == null) {
             return null;
         }
 
